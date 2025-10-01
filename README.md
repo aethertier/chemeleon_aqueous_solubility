@@ -11,11 +11,27 @@ To run this demo you will need to install (with Python 3.11 or 3.12) `'chemprop[
 
  - [`opt.py`](./opt.py): Main driver script - this shows how to train a single CheMeleon model for aqueous solubility prediction, as well as how to run hyperparameter optimization for the MOE model.
  - [`finetune.py`](./finetune.py): Takes a pre-trained model from `opt.py` and finetunes it on the testing dataset from `Polaris`.
- - [`inference.py`](./inference.py): Demonstrates using the pretrained or finetuned model for inference on new compounds without any further training or finetuning.
+ - [`inference.py`](./inference.py): Demonstrates using the pretrained or finetuned model for inference on new compounds without any further training or finetuning (uses `chemeleon_aqueous.pt`).
  - [`moe_ffn.py`](./moe_ffn.py): Implements the 'Adaptive Mixtures of Local Experts' model (aka Mixture of Experts) from [Jacobs _et al._](https://doi.org/10.1162/neco.1991.3.1.79) 1991 paper.
  - [`baybekov_ksol.csv`](./baybekov_ksol.csv): SMILES CSV version of the dataset curated in [this paper](https://doi.org/10.1002/minf.202300216) and available at [this link](https://doi.org/10.57745/ZWS0WC) in its original format.
  - [`clean_smiles.py`](./clean_smiles.py): This basic SMILES preprocessing script just helps to improve the performance of ML models (I've found empirically) - see the docstring therein for more details.
  - [`analyze_experts.ipynb`](./analyze_experts.ipynb): This notebook isn't fully built out, but was a helpful debugging tool during initial development to see if the mixture of experts model was actually working. Might prove interesting with more analysis!
+
+## Performance
+
+At the time of writing, the resulting model is the best open access model on the leaderboard, narrowly trailing a couple billion+ parameter proprietary models:
+
+|  # | Name                        | mean_absolute_error | mean_squared_error |        r² | spearmanr |  pearsonr | explained_var |
+| -: | --------------------------- | ------------------: | -----------------: | --------: | --------: | --------: | ------------: |
+|  1 | 1B_MPNN_MolGPS-ens_LargeMix |               0.312 |              0.222 |     0.590 |     0.664 |     0.770 |         0.592 |
+|  2 | 1B_MPNN_LargeMix-Phenomics  |               0.308 |              0.229 |     0.578 |     0.660 |     0.764 |         0.583 |
+|  3 | **CheMeleonMOE**            |           **0.317** |          **0.257** | **0.526** | **0.642** | **0.729** |     **0.532** |
+|  4 | CheMeleon                   |               0.355 |              0.291 |     0.464 |     0.588 |     0.682 |         0.465 |
+|  5 | it-works-now                |               0.378 |              0.314 |     0.420 |     0.574 |     0.669 |         0.430 |
+|  6 | ML4DD-team16                |               0.397 |              0.311 |     0.426 |     0.551 |     0.654 |         0.427 |
+|  7 | ML4DD-team9                 |               0.399 |              0.323 |     0.405 |     0.546 |     0.651 |         0.406 |
+
+The live leaderboard is here: https://polarishub.io/benchmarks/polaris/adme-fang-solu-1
 
 ## License
 

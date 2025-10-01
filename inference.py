@@ -1,15 +1,15 @@
 # inference.py
 # 
-# this file contains the class CheMeleonFingerprint which can be instantiated
-# and called to generate the CheMeleon learned embeddings for a list of SMILES
+# this file contains the class CheMeleonAqueous which can be instantiated
+# and called to predict aqueous solubility (in logS) for a list of SMILES
 # strings and/or RDKit Mols. you may wish to simply copy or download this file directly for use,
 # or adapt the code for your own purposes. No other files are required for it
-# to work, though you must `pip install 'chemprop>=2.2.0'` for this to run.
+# to work, though you must `pip install 'chemprop>=2.2.1'` for this to run.
 #
-# run `python chemeleon_fingerprint.py` for a quick usage demo, otherwise you
-# should `import` the CheMeleonFingerprint class into your other code and use
+# run `python inference.py` for a quick usage demo, otherwise you
+# should `import` the CheMeleonAqueous class into your other code and use
 # it there (following the example at the bottom of this file) to generate
-# your learned fingerprints
+# your predictions
 #
 # this file was adapted from the CheMeleon repository:
 # https://github.com/JacksonBurns/chemeleon/blob/237fa44d42fa503cecc095cf0aadf3a9eef52a95/chemeleon_fingerprint.py
@@ -42,7 +42,8 @@ class CheMeleonAqueous:
 
 if __name__ == "__main__":
     chemeleon_aqueous = CheMeleonAqueous()
-    chemeleon_aqueous([
+    results = chemeleon_aqueous([
         "O=C(C)Oc1ccccc1C(=O)O",  # aspirin
         MolFromSmiles("CC(=O)Nc1ccc(O)cc1"),  # acetaminophen
     ])
+    print(results)
