@@ -22,12 +22,14 @@ from chemprop.models import load_model
 from rdkit.Chem import MolFromSmiles, Mol
 import numpy as np
 
+DEFAULT_MODEL = Path(__file__).parent / 'pretrained' / 'chemeleon_aqueous.pt'
+
 
 class CheMeleonAqueous:
     def __init__(self, device: str | torch.device | None = None, model_path: str | Path | None = None):
         self.featurizer = featurizers.SimpleMoleculeMolGraphFeaturizer()
         if model_path is None:
-            model_path = Path(__file__).parent / "chemeleon_aqueous.pt"
+            model_path = DEFAULT_MODEL
         self.model = load_model(model_path)
         self.model.eval()
         if device is not None:
