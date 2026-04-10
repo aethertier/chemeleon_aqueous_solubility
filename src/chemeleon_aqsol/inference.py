@@ -13,6 +13,7 @@
 #
 # this file was adapted from the CheMeleon repository:
 # https://github.com/JacksonBurns/chemeleon/blob/237fa44d42fa503cecc095cf0aadf3a9eef52a95/chemeleon_fingerprint.py
+import sys
 from pathlib import Path
 
 import torch
@@ -22,12 +23,18 @@ from chemprop.models import load_model
 from rdkit.Chem import MolFromSmiles, Mol
 import numpy as np
 
+from . import moe_ffn
+sys.modules['moe_ffn'] = moe_ffn
+
+
+DEFAULT_MODEL = Path(__file__).parent / 'pretrained' / 'chemeleon_aqueous.pt'
+
 
 class CheMeleonAqueous:
     def __init__(self, device: str | torch.device | None = None, model_path: str | Path | None = None):
         self.featurizer = featurizers.SimpleMoleculeMolGraphFeaturizer()
         if model_path is None:
-            model_path = Path(__file__).parent / "chemeleon_aqueous.pt"
+            model_path = DEFAULT_MODEL
         self.model = load_model(model_path)
         self.model.eval()
         if device is not None:

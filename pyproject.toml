@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chemeleon_aqsol"
+description = "Pretrained model based on Chemeleon to predict aqueous solubility"
+dynamic = ["version", "readme"]
+authors = [
+    {name = "David Bickel"},
+]
+requires-python = ">= 3.12"
+dependencies = [
+    "chemprop>=2.2.1",
+    "numpy",
+    "pandas",
+    "rdkit",
+    "openpyxl",
+]
+classifiers=[
+    "Development Status :: 3 - Alpha",
+    "Natural Language :: English",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+keywords = ['solubility', 'logS']
+
+[project.urls]
+Repository = "https://bitbucket.org/santero-therapeutics/santero-esol"
+
+[project.scripts]
+"chemeleon-aqsol" = "chemeleon_aqsol.__main__:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "chemeleon_aqsol.__version__"}
+readme = {file = "README.md", content-type = "text/markdown"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["chemeleon_aqsol"]
+
+[tool.setuptools.package-data]
+chemeleon_aqsol = ['*.pt']

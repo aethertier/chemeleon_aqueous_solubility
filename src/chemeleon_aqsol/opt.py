@@ -17,8 +17,8 @@ from chemprop.models import MPNN
 from chemprop.nn.agg import MeanAggregation
 from chemprop.nn.transforms import UnscaleTransform
 
-from clean_smiles import clean_smiles
-from moe_ffn import ExpertMixtureRegressionFFN
+from .clean_smiles import clean_smiles
+from .moe_ffn import ExpertMixtureRegressionFFN
 
 
 def define_by_run(trial):
