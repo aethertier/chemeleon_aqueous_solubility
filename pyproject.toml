@@ -29,7 +29,7 @@ classifiers=[
 keywords = ['solubility', 'logS']
 
 [project.urls]
-Repository = "https://bitbucket.org/santero-therapeutics/santero-esol"
+Repository = "https://github.com/aethertier/chemeleon_aqueous_solubility/"
 
 [project.scripts]
 "chemeleon-aqsol" = "chemeleon_aqsol.__main__:main"
